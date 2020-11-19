@@ -1,7 +1,6 @@
 const dotenv = require('dotenv'); // Модуль дл работы с файлами .env
 dotenv.config(); // Сконфигурировали модуль
 const { PORT = 3000 } = process.env; // Переменные окружения
-// FIXME: переменные окружения брать из .env файла
 const express = require('express'); // Экспресс
 const bodyParser = require('body-parser'); // Body-parser для преобразования тела запроса
 const mongoose = require('mongoose'); // Подключили mongoose

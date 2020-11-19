@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator'); // Модуль для валидации данных (имейл)
+const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -55,5 +56,30 @@ const userSchema = new mongoose.Schema({
     minlength: 5,
   },
 });
+
+// Эта функция не должна быть стрелочной, потому что стрелочные функции запоминают свой THIS
+// А нам нужно чтобы this был привязан именно к схеме юзера, а не к месту вызова этого метода
+userSchema.statics.findUserByCredintials = function (email, password) {
+  // Нашли в базе данных пользователя по email
+  return this.findOne({ email }).then((user) => {
+    // Если такого юзера нет, вернётся Null
+    if (!user) {
+      // Если юзер не найден, вернём реджект в блок catch снаружи
+      return Promise.reject(new Error('Неправильные имя пользователя или пароль'));
+    }
+
+    // Если юзер есть, нужно сравнить хеши паролей
+    return bcrypt.compare(password, user.password).then((passwordsMatch) => {
+      // Если пароли не совпали, передаем реджект в блок catch снаружи
+      if (!passwordsMatch) {
+        // Не забываем возвращать реджект промисов
+        return Promise.reject(new Error('Неправильные имя пользователя или пароль'));
+      }
+
+      // Если пароли совпали, вернули объект юзера
+      return user;
+    });
+  });
+};
 
 module.exports = mongoose.model('user', userSchema);
