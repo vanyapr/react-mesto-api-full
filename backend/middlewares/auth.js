@@ -4,7 +4,9 @@ const { JWT_SECRET = 'development_only_secret_key' } = process.env;
 const auth = (req, res, next) => {
   const { authorisation } = req.cookies;
 
-  if (!authorisation && !authorisation.startsWith('Bearer ')) {
+  // В теории дали неправильный код, но нас не наебёшь
+  if (!authorisation || !authorisation.startsWith('Bearer ')) {
+    // В целях дебагинга и наглядности мы распишем ошибки
     return res.status(401).send({ message: 'Необходима авторизация: нет токена' });
   }
 
@@ -16,6 +18,7 @@ const auth = (req, res, next) => {
     payload = jwt.verify(token, JWT_SECRET); // Вторым аргументом передали токен
   } catch (error) {
     // Если что-то пошло не так, вернётся ошибка, которую надо обработать в блоке catch
+    // В целях дебагинга и наглядности мы распишем ошибки
     return res.status(401).send({ message: 'Необходима авторизация: ошибка расшифровки токена' });
   }
 

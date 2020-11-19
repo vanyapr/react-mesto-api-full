@@ -26,20 +26,8 @@ app.listen(PORT, () => {
 
 // Подключили body-parser
 app.use(bodyParser.json());
-
+// Парсинг кукисов тоже подключили
 app.use(cookieParser());
-app.use(auth);
-
-// В карточке есть поле owner для хранения её автора. Но в запросе клиент передаёт только
-// имя карточки и ссылку на картинку. В следующей теме вы узнаете, как решить эту
-// проблему, а пока реализуйте временное решение.
-// app.use((req, res, next) => {
-//   req.user = {
-//     _id: '5f9319bf093c0121b12fb47b',
-//   };
-//
-//   next();
-// });
 
 // Подключились к Mongodb
 mongoose.connect('mongodb://localhost:27017/mestodb', {
@@ -51,6 +39,6 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 // Объявляем роуты
 app.post('/signin', login); // Авторизация
 app.post('/signup', createUser); // Создание пользователя
-app.use('/', usersRouter); // Роутер юзеров
-app.use('/', cardsRouter); // Роутер карточек
-app.use('*', notfound); // Роутер страницы 404
+app.use('/', auth, usersRouter); // Роутер юзеров
+app.use('/', auth, cardsRouter); // Роутер карточек
+app.use('*', auth, notfound); // Роутер страницы 404, без авторизации мы даже её не покажем
