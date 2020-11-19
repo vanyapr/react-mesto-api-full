@@ -1,6 +1,7 @@
 ##Hidding node modules and dist folders from git - Задание практикума
 node_modules
 .npm
+.env
 #Поскольку я использую  IDE PhpStorm под MacOs, мне нужно скрывать дополнительные файлы в проекте
 
 # Created by https://www.gitignore.io/api/macos,phpstorm

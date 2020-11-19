@@ -1,3 +1,5 @@
+const dotenv = require('dotenv'); // Модуль дл работы с файлами .env
+dotenv.config(); // Сконфигурировали модуль
 const { PORT = 3000 } = process.env; // Переменные окружения
 // FIXME: переменные окружения брать из .env файла
 const express = require('express'); // Экспресс
@@ -8,7 +10,6 @@ const mongoose = require('mongoose'); // Подключили mongoose
 const usersRouter = require('./routes/users'); // Роут пользователей
 const cardsRouter = require('./routes/cards'); // Роут карточек
 const notfound = require('./routes/notfound'); // Роут ответа 404 ошибки
-// const router = require('./router'); // Подключили роутер
 
 // Объявили экспресс
 const app = express();

@@ -1,4 +1,6 @@
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const { JWT_SECRET = 'development_only_secret_key' } = process.env;
 const User = require('../models/user');
 
 // Найти всех пользователей в базе
@@ -31,12 +33,24 @@ const getUser = (req, res) => {
 
 // Создать пользователя в базе
 const createUser = (req, res) => {
+  const { email, password } = req.body;
+  let { name, about, avatar } = req.body;
+
   // Если мы отправляем пустые значения в JSON объекте, юзер не создаётся
-  let { name, about, avatar, email, password } = req.body;
+  // Поэтому мы жестко зададим эти значения как undefined,
+  // чтобы значение default в mongoose сработало
   if (name === '') {
     name = undefined;
   }
-  console.log(name, about, avatar, email, password);
+
+  if (about === '') {
+    about = undefined;
+  }
+
+  if (avatar === '') {
+    avatar = undefined;
+  }
+
   bcrypt.hash(password, 10)
     .then((passwordHash) => User.create({ name, about, avatar, email, password: passwordHash }))
     .then((data) => {
@@ -87,10 +101,25 @@ const updateAvatar = (req, res) => {
   });
 };
 
+const login = (req, res) => {
+  const { email, password } = req.body;
+
+  // Обратиться к бд и получить пользователя
+  User.findOne({ email }).then((user) => {
+    console.log(JWT_SECRET);
+    // получить хеш пароля
+    res.send({ id: user._id });
+  });
+  // Сверить пароль с хешем пароля
+  // Создать JWT токен со сроком жизни неделя
+  // В пейлоад записать _id пользователя
+};
+
 module.exports = {
   getAllUsers,
   getUser,
   createUser,
   updateProfile,
   updateAvatar,
+  login
 };
