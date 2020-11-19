@@ -4,6 +4,7 @@
   "description": "Реализация бэкэнд составляющей проекта Место на node и express",
   "main": "app.js",
   "scripts": {
+    "lint": "eslint --fix --ext .js,.jsx .",
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
