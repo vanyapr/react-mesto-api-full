@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 
 // Найти всех пользователей в базе
@@ -30,17 +31,19 @@ const getUser = (req, res) => {
 
 // Создать пользователя в базе
 const createUser = (req, res) => {
-  const { name, about, avatar } = req.body;
+  const { name, about, avatar, email, password } = req.body;
 
-  User.create({ name, about, avatar }).then((data) => {
-    res.send(data);
-  }).catch((error) => {
-    if (error.name === 'ValidationError') {
-      res.status(400).send({ message: 'Ошибка валидации - исправьте тело запроса' });
-    } else {
-      res.status(500).send({ message: error.message });
-    }
-  });
+  bcrypt.hash(password, 10)
+    .then((passwordHash) => User.create({ name, about, avatar, email, password: passwordHash }))
+    .then((data) => {
+      res.send(data);
+    }).catch((error) => {
+      if (error.name === 'ValidationError') {
+        res.status(400).send({ message: 'Ошибка валидации - исправьте тело запроса' });
+      } else {
+        res.status(500).send({ message: error.message });
+      }
+    });
 };
 
 const updateProfile = (req, res) => {

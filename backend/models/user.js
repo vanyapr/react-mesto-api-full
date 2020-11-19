@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const validator = require('validator'); // Модуль для валидации данных (имейл)
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -31,16 +32,25 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    minlength: 5,
+    maxlength: 40,
+    unique: true,
     validate: {
       validator(email) {
         // Проверяем имейл на соответствие шаблону имейла
         // Строка для проверки: a2-b.c23@a2-a.bb
-        const emailRegexp = /^[a-z0-9\-\.]+@[a-z0-9\-\.]+\.[a-z]+/;
-        return emailRegexp.test(email);
+        // const emailRegexp = /^[a-z0-9\-\.]+@[a-z0-9\-\.]+\.[a-z]+/;
+        // return emailRegexp.test(email);
+        return validator.isEmail(email);
       },
       message: 'Введите корректный адрес e-mail',
     },
-  }
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: 5,
+  },
 });
 
 module.exports = mongoose.model('user', userSchema);
