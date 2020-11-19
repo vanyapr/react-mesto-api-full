@@ -31,15 +31,20 @@ const getUser = (req, res) => {
 
 // Создать пользователя в базе
 const createUser = (req, res) => {
-  const { name, about, avatar, email, password } = req.body;
-
+  // Если мы отправляем пустые значения в JSON объекте, юзер не создаётся
+  let { name, about, avatar, email, password } = req.body;
+  if (name === '') {
+    name = undefined;
+  }
+  console.log(name, about, avatar, email, password);
   bcrypt.hash(password, 10)
     .then((passwordHash) => User.create({ name, about, avatar, email, password: passwordHash }))
     .then((data) => {
       res.send(data);
     }).catch((error) => {
       if (error.name === 'ValidationError') {
-        res.status(400).send({ message: 'Ошибка валидации - исправьте тело запроса' });
+        res.status(400).send(error);
+        // res.status(400).send({ message: 'Ошибка валидации - исправьте тело запроса' });
       } else {
         res.status(500).send({ message: error.message });
       }
