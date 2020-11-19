@@ -8,7 +8,6 @@ const login = (req, res) => {
   // Обратиться к бд и получить данные пользователя
   User.findUserByCredintials(email, password).then((user) => {
     const payload = { _id: user._id };
-    console.log(payload); // FIXME дебаггинг
     // Создать JWT токен со сроком жизни в неделю
     const token = jwt.sign(
       payload,
@@ -23,7 +22,7 @@ const login = (req, res) => {
       maxAge: 3600000 * 24 * 7,
       httpOnly: true, // Запретить доступ к куке из Javascript
       sameSite: true, // Отправлять куки этого домена только на тот же домен
-    }).send(user._id);
+    }).send(user);
   }).catch((error) => {
     res.status(401).send(error);
   });
