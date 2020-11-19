@@ -4,11 +4,17 @@ const { PORT = 3000 } = process.env; // Переменные окружения
 const express = require('express'); // Экспресс
 const bodyParser = require('body-parser'); // Body-parser для преобразования тела запроса
 const mongoose = require('mongoose'); // Подключили mongoose
+const cookieParser = require('cookie-parser'); // Модуль для разбора кукисов
+const auth = require('./middlewares/auth'); // Мидлвэр авторизации
 
 // Роутеры
 const usersRouter = require('./routes/users'); // Роут пользователей
 const cardsRouter = require('./routes/cards'); // Роут карточек
 const notfound = require('./routes/notfound'); // Роут ответа 404 ошибки
+
+// Контроллеры
+const createUser = require('./controllers/createUser');
+const login = require('./controllers/login');
 
 // Объявили экспресс
 const app = express();
@@ -20,6 +26,9 @@ app.listen(PORT, () => {
 
 // Подключили body-parser
 app.use(bodyParser.json());
+
+app.use(cookieParser());
+app.use(auth);
 
 // В карточке есть поле owner для хранения её автора. Но в запросе клиент передаёт только
 // имя карточки и ссылку на картинку. В следующей теме вы узнаете, как решить эту
@@ -40,6 +49,8 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 });
 
 // Объявляем роуты
+app.post('/signin', login); // Авторизация
+app.post('/signup', createUser); // Создание пользователя
 app.use('/', usersRouter); // Роутер юзеров
 app.use('/', cardsRouter); // Роутер карточек
 app.use('*', notfound); // Роутер страницы 404

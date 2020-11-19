@@ -1,6 +1,3 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const { JWT_SECRET = 'development_only_secret_key' } = process.env;
 const User = require('../models/user');
 
 // Найти всех пользователей в базе
@@ -29,40 +26,6 @@ const getUser = (req, res) => {
       res.status(500).send({ message: error.message });
     }
   });
-};
-
-// Создать пользователя в базе
-const createUser = (req, res) => {
-  const { email, password } = req.body;
-  let { name, about, avatar } = req.body;
-
-  // Если мы отправляем пустые значения в JSON объекте, юзер не создаётся
-  // Поэтому мы жестко зададим эти значения как undefined,
-  // чтобы значение default в mongoose сработало
-  if (name === '') {
-    name = undefined;
-  }
-
-  if (about === '') {
-    about = undefined;
-  }
-
-  if (avatar === '') {
-    avatar = undefined;
-  }
-
-  bcrypt.hash(password, 10)
-    .then((passwordHash) => User.create({ name, about, avatar, email, password: passwordHash }))
-    .then((data) => {
-      res.send(data);
-    }).catch((error) => {
-      if (error.name === 'ValidationError') {
-        res.status(400).send(error);
-        // res.status(400).send({ message: 'Ошибка валидации - исправьте тело запроса' });
-      } else {
-        res.status(500).send({ message: error.message });
-      }
-    });
 };
 
 const updateProfile = (req, res) => {
@@ -101,37 +64,18 @@ const updateAvatar = (req, res) => {
   });
 };
 
-const login = (req, res) => {
-  const { email, password } = req.body;
-
-  // Обратиться к бд и получить пользователя
-  User.findUserByCredintials(email, password).then((user) => {
-    const token = jwt.sign(
-      { id: user._id },
-      JWT_SECRET,
-      { // объект опций
-        expiresIn: '7d', // Срок жизни токена, если не передать срок действия, токен не истечёт
-      },
-    );
-    res.cookie('authorisation', `Bearer ${token}`, {
-      // Третьим параметром передали объект опций
-      maxAge: 3600000 * 24 * 7,
-      httpOnly: true, // Запретить доступ к куке из Javascript
-      sameSite: true, // Отправлять куки этого домена только на тот же домен
-    }).send(user._id);
+const getSelf = (req, res) => {
+  User.findOne({ _id: req.user._id }).then((user) => {
+    res.send(user);
   }).catch((error) => {
     res.status(401).send(error);
   });
-  // Сверить пароль с хешем пароля
-  // Создать JWT токен со сроком жизни неделя
-  // В пейлоад записать _id пользователя
 };
 
 module.exports = {
   getAllUsers,
   getUser,
-  createUser,
   updateProfile,
   updateAvatar,
-  login
+  getSelf,
 };
