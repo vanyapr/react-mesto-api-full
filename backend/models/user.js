@@ -54,6 +54,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 5,
+    select: false,
   },
 });
 
@@ -61,7 +62,7 @@ const userSchema = new mongoose.Schema({
 // А нам нужно чтобы this был привязан именно к схеме юзера, а не к месту вызова этого метода
 userSchema.statics.findUserByCredintials = function (email, password) {
   // Нашли в базе данных пользователя по email
-  return this.findOne({ email }).then((user) => {
+  return this.findOne({ email }).select('+password').then((user) => {
     // Если такого юзера нет, вернётся Null
     if (!user) {
       // Если юзер не найден, вернём реджект в блок catch снаружи

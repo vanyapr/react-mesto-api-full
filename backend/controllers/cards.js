@@ -25,15 +25,27 @@ const createCard = (req, res) => {
 const deleteCard = (req, res) => {
   const { cardId } = req.params;
 
-  Card.findByIdAndDelete(cardId).then((data) => {
-    if (data) {
-      res.send(data);
-    } else {
-      res.status(404).send({ message: 'Такой карточки нет' });
+  // Необходимо проверять права на удаление карточки перед самим удалением
+  // Сперва найти карточку
+  Card.findById(cardId).then((card) => {
+    if (card) {
+      // Потом проверить, что айди владельца === айди текущего пользователя
+      // if (card.owner === req.user._id) { //- не срабатывает, хз почему
+      // При точном сравнении id не сравниваются корректно без приведения к строке
+      if (card.owner.toString() === req.user._id.toString()) {
+        // Если мы являемся владельцем, удалить карточку
+        return Card.findByIdAndDelete(cardId).then((result) => {
+          res.send(result);
+        });
+      }
+
+      // Иначе вернуть ошибку
+      return Promise.reject(new Error('У вас нет прав на удаление этой карточки'));
     }
+    res.status(404).send({ message: 'Такой карточки нет!' });
   }).catch((error) => {
     if (error.kind === 'ObjectId') {
-      res.status(400).send({ message: 'Такой карточки нет' });
+      res.status(400).send({ message: 'Такой карточки нет.' });
     } else {
       res.status(500).send({ message: error.message });
     }
