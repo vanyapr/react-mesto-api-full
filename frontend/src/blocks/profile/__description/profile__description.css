@@ -1,0 +1,50 @@
+.profile__description {
+  font-family: 'Inter', "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  margin: 0;
+  grid-area: description;
+  align-self: start;
+  color: #fff;
+
+  /* Защита от переполнения*/
+  max-width: calc(880px - 120px - 150px - 17px - 24px - 30px * 2);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 800px){
+  .profile__description {
+    max-width: calc(100vw - 120px - 150px - 17px - 24px - 30px * 2);
+  }
+}
+
+@media screen and (max-width: 760px){
+  .profile__description {
+    max-width: calc(100vw - 120px - 17px - 24px - 30px * 2);
+  }
+}
+
+@media screen and (max-width: 516px){
+  .profile__description {
+    max-width: calc(100vw - 17px - 24px - 30px * 2);
+  }
+}
+
+@media screen and (max-width: 375px){
+  .profile__description {
+    justify-self: center;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 320px){
+  .profile__description {
+    max-width: calc(320px - 17px - 24px - 30px * 2);
+  }
+}

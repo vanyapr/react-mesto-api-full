@@ -1,0 +1,5 @@
+.header__navigation-switch_state_off {
+  background-image: url(../../../../images/navigation-stripes.svg);
+  -webkit-background-size: 24px 21px;
+  background-size: 24px 21px;
+}

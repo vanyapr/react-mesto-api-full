@@ -1,0 +1,6 @@
+.header__navigation-switch_state_on {
+  /* Тут SVG имеет пустое пространство, поэтому пришлось его "зумить" */
+  background-image: url(../../../../images/close.svg);
+  -webkit-background-size: 40px 40px;
+  background-size: 40px 40px;
+}

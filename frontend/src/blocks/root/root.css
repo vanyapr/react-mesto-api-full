@@ -1,0 +1,16 @@
+.root {
+  /* Суповой набор */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+
+  /*Переопределим стили страницы цвет фона и цвет шрифта */
+  background-color: #000;
+  color: #fff;
+  position: relative;
+  min-width: 320px;
+  min-height: 100vh;
+}

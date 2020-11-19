@@ -1,0 +1,25 @@
+@import url(./__title/form__title.css);
+@import url(./__input/form__input.css);
+@import url(./__input/_type/form__input_type_error.css);
+@import url(./__input-container/form__input-container.css);
+@import url(./__submit/form__submit.css);
+@import url(./__submit/_type/_confirm/form__submit_type_confirm.css);
+@import url(./__submit/_inactive/form__submit_inactive.css);
+@import url(./__error/form__error.css);
+@import url(./__error/_active/form__error_active.css);
+
+.form {
+  background: #fff;
+  /*max-width: 430px;*/
+  padding: 34px 36px 36px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 500px){
+  .form {
+    padding: 25px 20px 20px;
+  }
+}

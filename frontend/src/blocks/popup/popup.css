@@ -1,0 +1,19 @@
+@import url(./__container/popup__container.css);
+@import url(./__image-container/popup__image-container.css);
+@import url(./__image/popup__image.css);
+@import url(./__image-description/popup__image-description.css);
+@import url(./__close/popup__close.css);
+
+.popup {
+  /*display: none;*/
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  background: rgba(0, 0, 0 , 0.5);
+  opacity: 0;
+  transition: opacity .5s ease-in-out, visibility .5s ease-in-out;
+  visibility: hidden;
+
+}

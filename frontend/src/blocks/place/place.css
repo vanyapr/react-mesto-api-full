@@ -1,0 +1,19 @@
+@import url(./__image/place__image.css);
+@import url(./__title/place__title.css);
+@import url(./__like-container/place__like-container.css);
+@import url(./__like/place__like.css);
+@import url(./__like/_status/place__like_status_active.css);
+@import url(./__likes-count/place__likes-count.css);
+@import url(./__delete/place__delete.css);
+
+.place {
+  background: #fff;
+  border-radius: 10px;
+  display: grid;
+  grid-template-areas: 'image image'
+                       'heading like';
+  grid-template-columns: auto 56px;
+  grid-template-rows: auto 80px;
+  position: relative;
+  overflow: hidden;
+}

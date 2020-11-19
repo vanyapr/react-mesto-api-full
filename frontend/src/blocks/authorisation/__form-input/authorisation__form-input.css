@@ -1,0 +1,18 @@
+.authorisation__form-input {
+  font-family: 'Inter', "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  padding: 0 0 13px 0;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  background: transparent;
+  color: #fff;
+  display: block;
+  width: 100%;
+  margin-top: 30px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.authorisation__form-input::placeholder {
+  color: #ccc;
+}

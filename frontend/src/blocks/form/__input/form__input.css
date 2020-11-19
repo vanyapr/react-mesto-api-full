@@ -1,0 +1,24 @@
+.form__input {
+  font-family: 'Inter', "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  display: block;
+  border: none;
+  border-bottom: 1px solid #cbcbcb;
+  padding: 0 0 13.3px 0;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  margin-top: 54px;
+}
+
+.form__input + .form__input {
+  margin-top: 29.7px;
+}
+
+/*Судя по заданию, для невалидного инпута нужно добавлять специальный класс*/
+/*.form__input:invalid {*/
+/*  border-bottom: 1px solid #FF0000;*/
+/*}*/

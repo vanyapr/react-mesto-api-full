@@ -1,0 +1,25 @@
+/* Не вижу смысла переиспользовать здесь верстку формы из модальных окон. По логике бэм экран авторизации -- независимый
+блок, поэтому я считаю, что правильно реализовать отдельный компонент для экрана авторизации.
+Задание противоречит идеалогии БЭМ :(
+Если я захочу пренести этот компонент экрана авторизации в другой проект, у меня не возникнет дополнительных сложностей,
+и не придётся тянуть в другой проект дополнительны стили, которые там не нужны. Ведь без модификаторов данный экран
+в новом проекте работать не будет. Впрочем, если будет замечание на код-ревью, я переиспользую старый компонент.
+*/
+
+@import url(./__title/authorisation__title.css);
+@import url(./__form/authorisation__form.css);
+@import url(./__form-input/authorisation__form-input.css);
+@import url(./__form-submit/authorisation__form-submit.css);
+@import url(./__text/authorisation__text.css);
+@import url(./__link/authorisation__link.css);
+
+.authorisation {
+  max-width: 358px;
+  margin: 60px auto 0;
+}
+
+@media screen and (max-width: 425px) {
+  .authorisation {
+    margin: 60px 30px 0;
+  }
+}

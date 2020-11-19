@@ -1,0 +1,28 @@
+.authorisation__form-submit {
+  font-family: 'Inter', "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  margin-top: 216px;
+  background: #fff;
+  border-radius: 2px;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  color: #000;
+  padding: 14px 35px;
+  cursor: pointer;
+  transition: opacity linear .2s;
+}
+
+.authorisation__form-submit:hover {
+  opacity: .85;
+}
+
+@media screen and (max-width: 425px){
+  .authorisation__form-submit {
+    margin-top: 173px;
+  }
+}

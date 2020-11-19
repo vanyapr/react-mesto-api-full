@@ -1,0 +1,12 @@
+.form__error {
+  font-family: 'Inter', "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  position: absolute;
+  top: calc(32.3px + 5px);
+  left: 0;
+  color: #F00;
+  display: none;
+}

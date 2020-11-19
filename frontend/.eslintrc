@@ -1,0 +1,35 @@
+{
+  "extends": [
+    "airbnb-base",
+    "plugin:react/recommended"
+  ],
+  "parser": "babel-eslint",
+  "rules": {
+    "indent": ["error", 2], // Прописали отступы в проекте для линтера, чтобы не ругался
+    "object-curly-newline": "off", // Отключили требование объявлять объекты в несколько строк (деструктуризация)
+    "no-underscore-dangle": "off", // Отключили ругань на приватные методы и приватные поля
+    "import/no-unresolved": [ // Отключили ругань на импорт модулей ноды
+      2,
+      { "caseSensitive": false }
+    ],
+    "import/newline-after-import": "off", // Отключили ругань на импорт модулей сразу на следующей строке
+    "no-console": "off", // Нам нужен  console.log в проекте
+    "no-useless-escape": "off", // Отключить ругань на экранирование символов в регулярных выражениях (\.)
+    "class-methods-use-this": ["error", { "exceptMethods": ["render"] }], // Отключили ругань с требованием объявлять методы класса как this.method.bind(this)
+    "max-len": ["error", { "code": 320 }], // Отключили максимальную длину строк, потому что в темплейтах реакта строки по 130 символов в длину
+    "arrow-body-style": "off", // Отключили требование обязательно возвращать значение для стрелочных функций (создаёт варнинги в react.memo)
+    "react/no-children-prop": "off", // Ругань на дочерние элементы передающиеся в пропсах
+    "react/prop-types": "off", // Ругань на отсутствие валидации пропсов в реакте
+    "react/display-name": "off", // Ошибки eslint React.memo()
+    "no-else-return": "off", // Ошибки в блоке если там есть else
+    "consistent-return": "off", // Обязательный возврат значений стрелочной функцией
+    "quote-props": "off" // Ошибки с кавычками при передаче заголовков запроса fetch
+  },
+  "plugins": [
+    "eslint-plugin-no-memo-displayname", // Должен исправлять ошибки eslint React.memo(), но не работает?
+    "eslint-plugin-react"
+  ],
+  "env": {
+    "browser": true
+  }
+}

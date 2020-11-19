@@ -1,0 +1,33 @@
+@import url(./__navigation/header__navigation.css);
+@import url(./__navigation-list/header__navigation-list.css);
+@import url(./__navigation-item/header__navigation-item.css);
+@import url(./__link/header__link.css);
+@import url(./__link/_type/header__link_type_logout.css);
+@import url(./__navigation-switch/header__navigation-switch.css);
+@import url(./__navigation-switch/_state/header__navigation-switch_state_off.css);
+@import url(./__navigation-switch/_state/header__navigation-switch_state_on.css);
+
+
+.header {
+  max-width: 882px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 45px 0 40.6px;
+  border-bottom: 1px solid #545454;
+
+}
+
+@media screen and (max-width: 920px){
+  .header {
+    padding: 28px 19px 31.6px;
+  }
+}
+
+@media screen and (max-width: 425px){
+  .header {
+    margin-top: 0;
+    transition: margin-top linear .3s;
+  }
+}

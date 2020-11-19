@@ -1,0 +1,6 @@
+@import url(./__image/logo__image.css);
+
+.logo {
+  display: block;
+  font-size: 0;
+}

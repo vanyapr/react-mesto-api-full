@@ -1,0 +1,14 @@
+.header__navigation-item {
+  font-family: 'Inter', "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: right;
+}
+
+@media screen and (max-width: 425px){
+  .header__navigation-item {
+    text-align: center;
+  }
+}

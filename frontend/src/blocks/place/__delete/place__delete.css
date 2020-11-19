@@ -1,0 +1,29 @@
+.place__delete {
+  /* Для разнообразия и из соображений простоты
+   сверстаем абсолютным позиционированием */
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  width: 18px;
+  height: 19.3px;
+  background-color: transparent;
+  background-image: url("../../../images/delete.svg");
+  background-repeat: no-repeat;
+  -webkit-background-size: 20.76px 18.13px;
+  background-size: 20.76px 18.13px;
+  background-position: center;
+  /*Скрываем название кнопки*/
+  text-indent: -9000px;
+  border: none;
+  align-self: center;
+  cursor: pointer;
+
+  /* В гугл хроме очень ядрёный аутлайн, поэтому удалим его */
+  outline: #2f80ed;
+  /* На белом фоне иконка пропадает, добавим еле-заметную тень чтобы видеть белую иконку всегда.*/
+  filter: drop-shadow(0px 1px 15px black);
+}
+
+.place__delete:hover {
+  opacity: .6;
+}

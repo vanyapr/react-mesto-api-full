@@ -1,0 +1,20 @@
+.profile__info {
+  display: grid;
+  grid-template-areas: 'title edit-button'
+                       'description description';
+  grid-template-columns: max-content auto;
+  grid-column-gap: 17px;
+  grid-row-gap: 16px;
+}
+
+@media screen and (max-width: 520px){
+  .profile__info {
+    justify-self: center;
+  }
+}
+
+@media screen and (max-width: 320px){
+  .profile__info {
+    grid-row-gap: 0px;
+  }
+}

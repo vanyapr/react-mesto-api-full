@@ -1,0 +1,8 @@
+.place__like_status_active {
+  background-image: url("../../../../images/heart_active.svg");
+}
+
+.place__like_status_active:hover {
+  /*В макете не указано поведение кнопки, предположим что все элементы по наведению становятся прозрачными*/
+  /*opacity: 1;*/
+}

@@ -1,0 +1,8 @@
+.tooltip__icon {
+  text-indent: -9000px;
+  width: 120px;
+  height: 120px;
+  display: block;
+  font-size: 0;
+  line-height: 0;
+}

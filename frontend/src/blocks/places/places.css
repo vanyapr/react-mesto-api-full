@@ -1,0 +1,14 @@
+@import url(./__list/places__list.css);
+
+.places {
+  max-width: 882px;
+  margin: 51px auto 0;
+  padding: 0 19px;
+}
+
+@media screen and (max-width: 520px){
+  .places {
+    justify-self: center;
+    margin: 36px auto 0;
+  }
+}

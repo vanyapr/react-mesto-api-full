@@ -1,0 +1,21 @@
+.form__submit {
+  font-family: 'Inter', "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  margin-top: 48px;
+  background: #000000;
+  border-radius: 2px;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  color: #fff;
+  padding: 13.6px 0 18.49px;
+  cursor: pointer;
+}
+
+.form__submit:hover {
+  background: rgba(0, 0, 0, 0.8);
+}

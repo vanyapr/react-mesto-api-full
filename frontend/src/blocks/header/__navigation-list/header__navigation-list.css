@@ -1,0 +1,13 @@
+.header__navigation-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 24px;
+}
+
+@media screen and (max-width: 425px){
+  .header__navigation-list {
+    display: block;
+  }
+}

@@ -1,0 +1,55 @@
+.profile__title {
+  font-family: 'Inter', "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 56px;
+  margin: 0;
+  grid-area: title;
+  align-self: end;
+  color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  /* Защита от переполнения*/
+  max-width: calc(882px - 120px - 150px - 50px * 2 - 24px - 30px * 2);
+}
+
+@media screen and (max-width: 925px) {
+  .profile__title {
+    max-width: calc(100vw - 120px - 150px - 50px * 2 - 24px - 30px * 2);
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .profile__title {
+   /*// max-width: calc(100vw - 120px - 150px - 50px * 2 - 30px * 2);*/
+  }
+}
+
+@media screen and (max-width: 725px) {
+  .profile__title {
+    max-width: calc(100vw - 120px - 50px * 2 - 30px);
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .profile__title {
+    max-width: calc(100vw - 50px * 2 - 30px);
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .profile__title {
+    max-width: calc(100vw - 30px * 2 - 30px);
+    min-width: calc(320px - 30px * 2 - 30px);
+  }
+}
+
+
+@media screen and (max-width: 375px){
+  .profile__title {
+    font-size: 27px;
+    line-height: 46px;
+  }
+}

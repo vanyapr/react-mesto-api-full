@@ -1,0 +1,23 @@
+.header__navigation-switch {
+  display: none;
+}
+
+.header__navigation-switch:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 425px){
+  .header__navigation-switch {
+    display: block;
+    background-color: transparent;
+    border: none;
+    text-indent: -9000px;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    outline: none;
+  }
+}

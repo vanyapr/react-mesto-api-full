@@ -1,0 +1,16 @@
+@import url(./__title/tooltip__title.css);
+@import url(./__icon/tooltip__icon.css);
+@import url(./__icon/_type/tooltip__icon_type_error.css);
+@import url(./__icon/_type/tooltip__icon_type_success.css);
+
+.tooltip {
+  background: #fff;
+  padding: 60px 36px;
+  box-shadow: 0 0 25px rgba(0,0,0,.15);
+  border-radius: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
