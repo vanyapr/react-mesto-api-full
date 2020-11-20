@@ -18,12 +18,7 @@ const login = (req, res, next) => {
       },
     );
     // В пейлоад записать _id пользователя
-    res.cookie('authorisation', `Bearer ${token}`, {
-      // Третьим параметром передали объект опций
-      maxAge: 3600000 * 24 * 7, // Семь дней
-      httpOnly: true, // Запретить доступ к куке из Javascript
-      sameSite: true, // Отправлять куки этого домена только на тот же домен
-    }).send(user);
+    res.send({ token });
   }).catch((error) => {
     // Передали ошибку по цепочке в обработчик, придав ошибке статус
     next(new UnauthorisedError(error.message));

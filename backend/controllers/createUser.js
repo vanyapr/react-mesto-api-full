@@ -25,7 +25,7 @@ const createUser = (req, res, next) => {
   bcrypt.hash(password, 10)
     .then((passwordHash) => User.create({ name, about, avatar, email, password: passwordHash }))
     .then((data) => {
-      res.send(data);
+      res.status(201).send(data);
     }).catch((error) => {
       if (error.name === 'ValidationError') {
         next(new WrongDataError('Ошибка валидации - исправьте тело запроса'));

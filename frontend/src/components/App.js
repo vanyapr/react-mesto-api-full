@@ -194,7 +194,7 @@ class App extends React.Component {
             isUserLogined: false,
           }, () => {
             // Если токен просрочен или некорректен, удалили его
-            localStorage.removeItem('jwt');
+            // localStorage.removeItem('jwt');
           });
         }
       });

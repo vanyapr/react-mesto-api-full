@@ -67,7 +67,7 @@ const updateAvatar = (req, res, next) => {
 
 const getSelf = (req, res, next) => {
   User.findOne({ _id: req.user._id }).then((user) => {
-    res.send(user);
+    res.send({ data: user });
   }).catch(next); // Авторизация юзера проверяется в мидлвэре авторизации
 };
 

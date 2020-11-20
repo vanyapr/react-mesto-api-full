@@ -3,16 +3,16 @@ const UnauthorisedError = require('../errors/unauthorised');
 const { JWT_SECRET = 'development_only_secret_key' } = process.env;
 
 const auth = (req, res, next) => {
-  const { authorisation } = req.cookies;
+  const { authorization } = req.headers; // Получили токен из хидера
 
   // В теории дали неправильный код, но нас не наебёшь
-  if (!authorisation || !authorisation.startsWith('Bearer ')) {
+  if (!authorization || !authorization.startsWith('Bearer ')) {
     // В целях дебагинга и наглядности мы распишем ошибки
     next(new UnauthorisedError('Необходима авторизация: нет токена'));
     return;
   }
 
-  const token = authorisation.replace('Bearer ', '');
+  const token = authorization.replace('Bearer ', '');
   let payload;
 
   try {
