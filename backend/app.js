@@ -41,6 +41,13 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 // Объявили логгер реквестов (до обработчиков реквестов)
 app.use(requestLogger);
 
+// Краш тэст сервера
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 // Объявляем роуты
 app.post('/signin', celebrate({
   body: Joi.object().keys({
