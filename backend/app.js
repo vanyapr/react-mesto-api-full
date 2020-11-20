@@ -42,3 +42,11 @@ app.post('/signup', createUser); // Создание пользователя
 app.use('/', auth, usersRouter); // Роутер юзеров
 app.use('/', auth, cardsRouter); // Роутер карточек
 app.use('*', auth, notfound); // Роутер страницы 404, без авторизации мы даже её не покажем
+
+// Обработчик ошибок в конце файла после других мидллвэров (чтобы ловить все ошибки)
+app.use((err, req, res, next) => {
+  const { statusCode = 500, message } = err;
+  // Если у ошибки статус 500 - отправляем стандартное сообщение об ошибке
+  res.status(statusCode).send({ message: statusCode === 500 ? 'Ошибка на сервере' : message });
+  next();
+});

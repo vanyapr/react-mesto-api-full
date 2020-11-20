@@ -15,7 +15,7 @@ class Api {
       return serverResponse.json(); // Если сервер ответил без ошибок, вернули данные в JSON
     }
 
-    return Promise.reject(`Ошибка: ${serverResponse.status}`); // Иначе вернули ошибку, которая попадёт в catch
+    return Promise.reject(new Error(`Ошибка: ${serverResponse.status}`)); // Иначе вернули ошибку, которая попадёт в catch
   }
 
   getUserInfo() {

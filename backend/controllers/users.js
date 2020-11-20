@@ -1,34 +1,35 @@
+const WrongDataError = require('../errors/wrongData');
+const NotFoundError = require('../errors/notFound');
 const User = require('../models/user');
 
 // Найти всех пользователей в базе
-const getAllUsers = (req, res) => {
+const getAllUsers = (req, res, next) => {
   User.find({}).then((data) => {
     res.send(data);
-  }).catch((error) => {
-    res.status(500).send({ message: error.message });
-  });
+  }).catch(next);
 };
 
 // Найти пользователя в базе
-const getUser = (req, res) => {
+const getUser = (req, res, next) => {
   const { userId } = req.params;
 
   User.findById(userId).then((data) => {
     if (data) {
       res.send(data);
-    } else {
-      res.status(404).send({ message: 'Пользователь не найден' });
     }
+    // Если пользователь не найден, вернём ошибку
+    return Promise.reject(new NotFoundError('Пользователь не найден'));
   }).catch((error) => {
     if (error.kind === 'ObjectId') {
-      res.status(400).send({ message: 'Такого пользователя нет' });
+      next(new WrongDataError('Некорректный идентификатор пользователя'));
     } else {
-      res.status(500).send({ message: error.message });
+      next(error);
     }
   });
 };
 
-const updateProfile = (req, res) => {
+// Обновить профиль пользователя
+const updateProfile = (req, res, next) => {
   const { name, about } = req.body;
 
   User.findByIdAndUpdate({ _id: req.user._id }, { name, about }, {
@@ -39,14 +40,14 @@ const updateProfile = (req, res) => {
     res.send(data);
   }).catch((error) => {
     if (error.name === 'ValidationError') {
-      res.status(400).send({ message: 'Ошибка валидации - исправьте тело запроса' });
+      next(new WrongDataError('Ошибка валидации - исправьте тело запроса'));
     } else {
-      res.status(500).send({ message: error.message });
+      next(error);
     }
   });
 };
 
-const updateAvatar = (req, res) => {
+const updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
 
   User.findOneAndUpdate({ _id: req.user._id }, { avatar }, {
@@ -57,19 +58,17 @@ const updateAvatar = (req, res) => {
     res.send(data);
   }).catch((error) => {
     if (error.name === 'ValidationError') {
-      res.status(400).send({ message: 'Ошибка валидации - исправьте тело запроса' });
+      next(new WrongDataError('Ошибка валидации - исправьте тело запроса'));
     } else {
-      res.status(500).send({ message: error.message });
+      next(error);
     }
   });
 };
 
-const getSelf = (req, res) => {
+const getSelf = (req, res, next) => {
   User.findOne({ _id: req.user._id }).then((user) => {
     res.send(user);
-  }).catch((error) => {
-    res.status(401).send(error);
-  });
+  }).catch(next); // Авторизация юзера проверяется в мидлвэре авторизации
 };
 
 module.exports = {

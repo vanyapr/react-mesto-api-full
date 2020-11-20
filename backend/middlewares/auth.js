@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const UnauthorisedError = require('../errors/unauthorised');
 const { JWT_SECRET = 'development_only_secret_key' } = process.env;
 
 const auth = (req, res, next) => {
@@ -7,7 +8,8 @@ const auth = (req, res, next) => {
   // В теории дали неправильный код, но нас не наебёшь
   if (!authorisation || !authorisation.startsWith('Bearer ')) {
     // В целях дебагинга и наглядности мы распишем ошибки
-    return res.status(401).send({ message: 'Необходима авторизация: нет токена' });
+    next(new UnauthorisedError('Необходима авторизация: нет токена'));
+    return;
   }
 
   const token = authorisation.replace('Bearer ', '');
@@ -19,7 +21,8 @@ const auth = (req, res, next) => {
   } catch (error) {
     // Если что-то пошло не так, вернётся ошибка, которую надо обработать в блоке catch
     // В целях дебагинга и наглядности мы распишем ошибки
-    return res.status(401).send({ message: 'Необходима авторизация: ошибка расшифровки токена' });
+    next(new UnauthorisedError('Необходима авторизация: токен недействителен или просрочен'));
+    return;
   }
 
   // Записали _id пользователя в запрос
