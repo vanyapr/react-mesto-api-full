@@ -31,6 +31,16 @@ app.use(bodyParser.json());
 // Парсинг кукисов тоже подключили
 app.use(cookieParser());
 
+// Разрешаем запросы откуда угодно
+const allowRequestsFromAnyWhere = (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+};
+
+app.use(allowRequestsFromAnyWhere);
+
 // Подключились к Mongodb
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,

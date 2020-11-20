@@ -213,7 +213,7 @@ class App extends React.Component {
     // Использовал Promise.all по совету код-ревьюера, теперь стейт юзера и карточек обновляется
     // в одном выражении вместо двух, упростил читаемость кода
     Promise.all([api.getUserInfo(), api.getCardsList()]).then(([userInfo, cardsData]) => {
-      console.log(userInfo);
+      // console.log(userInfo);
       this.setState({
         currentUser: userInfo,
         cards: cardsData,

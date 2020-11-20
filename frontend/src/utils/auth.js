@@ -1,4 +1,4 @@
-const authUrl = 'https://auth.nomoreparties.co';
+const authUrl = 'https://api.vanyapro.students.nomoreparties.co';
 
 // Метод регистрации на сервисе
 const register = (email, password) => {

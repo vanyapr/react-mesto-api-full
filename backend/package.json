@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vanyapr/express-mesto.git"
+    "url": "git+https://github.com/vanyapr/react-mesto-api-full.git"
   },
   "author": "snowflax@ya.ru",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/vanyapr/express-mesto/issues"
+    "url": "https://github.com/vanyapr/react-mesto-api-full/issues"
   },
-  "homepage": "https://github.com/vanyapr/express-mesto#readme",
+  "homepage": "https://github.com/vanyapr/react-mesto-api-full#readme",
   "devDependencies": {
     "eslint": "^7.11.0",
     "eslint-config-airbnb-base": "^14.2.0",

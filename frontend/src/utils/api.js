@@ -1,5 +1,5 @@
 import { token, cohort } from './utils.js';
-
+// FIXME: Убрать токен и когорту за ненадобностью
 class Api {
   // Конструктор принимает токен
   constructor(token, cohort) {
