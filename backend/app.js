@@ -38,7 +38,8 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useFindAndModify: false,
 });
 
-// Объявили логгер
+// Объявили логгер реквестов (до обработчиков реквестов)
+app.use(requestLogger);
 
 // Объявляем роуты
 app.post('/signin', celebrate({
@@ -58,6 +59,9 @@ app.post('/signup', celebrate({
 app.use('/', auth, usersRouter); // Роутер юзеров
 app.use('/', auth, cardsRouter); // Роутер карточек
 app.use('*', auth, notfound); // Роутер страницы 404, без авторизации мы даже её не покажем
+
+// Объявили логгер ошибок (после обработчиков реквестов и до обработчика ошибок)
+app.use(requestLogger);
 
 // Обработчик ошибок Celebrate (должен быть после роутеров, чтобы отловить ошибки)
 app.use(errors());

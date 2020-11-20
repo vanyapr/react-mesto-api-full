@@ -2,6 +2,7 @@
 node_modules
 .npm
 .env
+*.log
 #Поскольку я использую  IDE PhpStorm под MacOs, мне нужно скрывать дополнительные файлы в проекте
 
 # Created by https://www.gitignore.io/api/macos,phpstorm
