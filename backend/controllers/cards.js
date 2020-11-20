@@ -12,8 +12,8 @@ const getCards = (req, res, next) => {
 const createCard = (req, res, next) => {
   const { name, link } = req.body;
 
-  Card.save({ name, link, owner: req.user._id }).then((data) => {
-    // TODO: Это решение работает, но хотелось бы сделать это в один запрос
+  Card.create({ name, link, owner: req.user._id }).then((data) => {
+    // TODO: найти подходящее решение чтобы делать это в 1 запрос
     return Card.findById(data._id).populate('owner').populate('likes');
   }).then((data) => {
     res.send(data);

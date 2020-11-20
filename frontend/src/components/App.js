@@ -114,7 +114,7 @@ class App extends React.Component {
 
   handleUpdateUser = (newUserData) => {
     this._api.saveUserInfo(newUserData).then((responseData) => {
-      console.log(responseData);
+      // console.log(responseData);
       this.setState({ currentUser: responseData });
       this.closeAllPopups();
     }).catch((error) => console.log(error));
@@ -180,7 +180,7 @@ class App extends React.Component {
 
   handleAddPlaceSubmit = (newCardObject) => {
     this._api.addCard(newCardObject).then((responseData) => {
-      console.log(responseData);
+      // console.log(responseData);
       this.setState({ cards: [responseData, ...this.state.cards] });
       this.closeAllPopups();
     }).catch((error) => console.log(error));
@@ -225,7 +225,6 @@ class App extends React.Component {
     // Использовал Promise.all по совету код-ревьюера, теперь стейт юзера и карточек обновляется
     // в одном выражении вместо двух, упростил читаемость кода
     Promise.all([this._api.getUserInfo(), this._api.getCardsList()]).then(([userInfo, cardsData]) => {
-      console.log(userInfo);
       this.setState({
         currentUser: userInfo.data,
         cards: cardsData,
