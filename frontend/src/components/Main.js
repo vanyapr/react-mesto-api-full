@@ -5,10 +5,6 @@ import { CurrentUserContext } from '../contexts/currentUserContext'; // Конт
 class Main extends React.PureComponent {
   static contextType = CurrentUserContext;
 
-  // constructor(props) {
-  //   super(props);
-  // }
-
   render() {
     return (
       <main className="main">

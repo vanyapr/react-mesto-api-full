@@ -1,6 +1,3 @@
-import { token, cohort } from './utils.js';
-// FIXME: Убрать токен и когорту за ненадобностью
-// const authUrl = `https://mesto.nomoreparties.co/v1/${this._cohort}`;
 const authUrl = 'http://localhost:3000';
 
 class Api {
@@ -102,7 +99,6 @@ class Api {
   }
 }
 
-// const api = new Api();
 export default Api;
 
 // Коментарий для проверки разрешения конфликта с гитхабом

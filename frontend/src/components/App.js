@@ -29,12 +29,13 @@ class App extends React.Component {
       selectedCard: '',
       currentUser: '',
       cards: [],
-      // FIXME: Переменная для нужд разработки, авторизован ли юзер
       isUserLogined: false,
     };
+  }
 
-    this._apiToken = localStorage.getItem('jwt');
-    this._api = new Api(this._apiToken);
+  // Функция для объявления экземпляра апи
+  _setApi(token) {
+    this._api = new Api(token);
   }
 
   handleLogin = (token, email) => {
@@ -45,6 +46,10 @@ class App extends React.Component {
     }, () => {
       // Сохранили токен в локальное хранилище браузера
       this.saveTokenToLocalStorage(token);
+      // Объявили апи
+      this._setApi(token);
+      // Получили данные
+      this.getMainData();
     });
   }
 
@@ -191,6 +196,10 @@ class App extends React.Component {
             isUserLogined: true,
             userEmailAddress: json.data.email,
           }, () => {
+            // Объявили апи
+            this._setApi(token);
+            // Получили данные
+            this.getMainData();
             this.props.history.push('/');
           });
         } else {
@@ -211,9 +220,7 @@ class App extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.checkUserToken();
-
+  getMainData = () => {
     // Использовал Promise.all по совету код-ревьюера, теперь стейт юзера и карточек обновляется
     // в одном выражении вместо двух, упростил читаемость кода
     Promise.all([this._api.getUserInfo(), this._api.getCardsList()]).then(([userInfo, cardsData]) => {
@@ -223,6 +230,10 @@ class App extends React.Component {
         cards: cardsData,
       });
     }).catch((error) => console.log(error));
+  }
+
+  componentDidMount() {
+    this.checkUserToken();
   }
 
   render() {

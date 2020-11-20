@@ -12,8 +12,6 @@ const Card = React.memo(({ card, onCardClick, onCardLike, onCardDelete }) => {
 
   function handleLike() {
     onCardLike(card);
-    console.log(currentUser);
-    console.log(card);
   }
 
   function handleDelete() {
