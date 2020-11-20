@@ -2,8 +2,8 @@
 Репозиторий приложения проекта `Mesto`, включающий фронтенд и бэкенд части приложения со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями.
 
 ## Готовый проект
-[vanyapro.students.nomoreparties.co](vanyapro.students.nomoreparties.co) - Фронтенд
-[api.vanyapro.students.nomoreparties.co](api.vanyapro.students.nomoreparties.co) - Бекенд
+[https://vanyapro.students.nomoreparties.co](https://vanyapro.students.nomoreparties.co) - Фронтенд
+[https://api.vanyapro.students.nomoreparties.co](https://api.vanyapro.students.nomoreparties.co) - Бекенд
 
 ## Используемые технологии
 В проекте используется современный стек технологий для фронтенда и бекенда.
