@@ -12,7 +12,10 @@ const getCards = (req, res, next) => {
 const createCard = (req, res, next) => {
   const { name, link } = req.body;
 
-  Card.create({ name, link, owner: req.user._id }).then((data) => {
+  Card.save({ name, link, owner: req.user._id }).then((data) => {
+    // TODO: Это решение работает, но хотелось бы сделать это в один запрос
+    return Card.findById(data._id).populate('owner').populate('likes');
+  }).then((data) => {
     res.send(data);
   }).catch((error) => {
     if (error.name === 'ValidationError') {
