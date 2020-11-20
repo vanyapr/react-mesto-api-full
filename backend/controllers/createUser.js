@@ -1,5 +1,5 @@
-const WrongDataError = require('../errors/wrongData');
 const bcrypt = require('bcryptjs');
+const WrongDataError = require('../errors/wrongData');
 const User = require('../models/user');
 
 // Создать пользователя в базе
@@ -29,6 +29,9 @@ const createUser = (req, res, next) => {
     }).catch((error) => {
       if (error.name === 'ValidationError') {
         next(new WrongDataError('Ошибка валидации - исправьте тело запроса'));
+      } else if (error.name === 'MongoError') {
+        // На боевых проектах так нельзя, но здесь я хочу отловить ошибку
+        next(new WrongDataError('Ошибка валидации - email должен быть уникальным'));
       } else {
         next(error);
       }

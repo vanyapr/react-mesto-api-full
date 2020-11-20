@@ -1,10 +1,12 @@
 const dotenv = require('dotenv'); // Модуль дл работы с файлами .env
 dotenv.config(); // Сконфигурировали модуль
+const { errors, celebrate, Joi } = require('celebrate'); // Обработчик ошибок celebrate
 const { PORT = 3000 } = process.env; // Переменные окружения
 const express = require('express'); // Экспресс
 const bodyParser = require('body-parser'); // Body-parser для преобразования тела запроса
 const mongoose = require('mongoose'); // Подключили mongoose
 const cookieParser = require('cookie-parser'); // Модуль для разбора кукисов
+const { requestLogger, errorLogger } = require('./middlewares/logger'); // Логгер запросов и ошибок
 const auth = require('./middlewares/auth'); // Мидлвэр авторизации
 
 // Роутеры
@@ -24,7 +26,7 @@ app.listen(PORT, () => {
   console.log(`App started. Listening at port ${PORT}`);
 });
 
-// Подключили body-parser
+// Подключили body-parser для JSON запросов
 app.use(bodyParser.json());
 // Парсинг кукисов тоже подключили
 app.use(cookieParser());
@@ -36,12 +38,29 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useFindAndModify: false,
 });
 
+// Объявили логгер
+
 // Объявляем роуты
-app.post('/signin', login); // Авторизация
-app.post('/signup', createUser); // Создание пользователя
+app.post('/signin', celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().required().min(5).max(40),
+    password: Joi.string().required().min(5),
+  }),
+}), login); // Авторизация
+
+app.post('/signup', celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().required().min(5).max(40),
+    password: Joi.string().required().min(5),
+  }),
+}), createUser); // Создание пользователя
+
 app.use('/', auth, usersRouter); // Роутер юзеров
 app.use('/', auth, cardsRouter); // Роутер карточек
 app.use('*', auth, notfound); // Роутер страницы 404, без авторизации мы даже её не покажем
+
+// Обработчик ошибок Celebrate (должен быть после роутеров, чтобы отловить ошибки)
+app.use(errors());
 
 // Обработчик ошибок в конце файла после других мидллвэров (чтобы ловить все ошибки)
 app.use((err, req, res, next) => {

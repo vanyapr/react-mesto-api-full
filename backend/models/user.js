@@ -5,12 +5,12 @@ const bcrypt = require('bcryptjs');
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    // maxlength: 30,
+    maxlength: 30,
     default: 'Жак-Ив Кусто',
   },
   about: {
     type: String,
-    // maxlength: 30,
+    maxlength: 30,
     default: 'Исследователь',
   },
   avatar: {
