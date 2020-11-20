@@ -1,4 +1,5 @@
-const authUrl = 'https://api.vanyapro.students.nomoreparties.co';
+// const authUrl = 'https://api.vanyapro.students.nomoreparties.co';
+const authUrl = 'http://localhost:3000';
 
 class Api {
   // Конструктор принимает токен

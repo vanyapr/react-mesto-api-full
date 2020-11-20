@@ -59,7 +59,7 @@ const putLikeToCard = (req, res, next) => {
   Card.findByIdAndUpdate(cardId, { $addToSet: { likes: req.user._id } }, {
     new: true, // обработчик then получит на вход обновлённую запись
     runValidators: true, // данные будут валидированы перед изменением
-  }).populate('likes').then((data) => {
+  }).populate('owner').populate('likes').then((data) => {
     if (data) {
       res.send(data);
     }
@@ -82,7 +82,7 @@ const deleteLikeFromCard = (req, res, next) => {
   Card.findByIdAndUpdate(cardId, { $pull: { likes: req.user._id } }, {
     new: true, // обработчик then получит на вход обновлённую запись
     runValidators: true, // данные будут валидированы перед изменением
-  }).populate('likes').then((data) => {
+  }).populate('owner').populate('likes').then((data) => {
     if (data) {
       res.send(data);
     } else {
