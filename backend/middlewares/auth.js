@@ -8,7 +8,7 @@ const auth = (req, res, next) => {
   // В теории дали неправильный код, но нас не наебёшь
   if (!authorization || !authorization.startsWith('Bearer ')) {
     // В целях дебагинга и наглядности мы распишем ошибки
-    next(new UnauthorisedError('Необходима авторизация: нет токена'));
+    next(new UnauthorisedError('Необходима авторизация: не передан токен'));
     return;
   }
 

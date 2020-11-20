@@ -12,7 +12,7 @@ import EditProfilePopup from './EditProfilePopup'; // Попап редакти�
 import EditAvatarPopup from './EditAvatarPopup'; // Попап редактирования аватара
 import AddPlacePopup from './AddPlacePopup'; // Попап добавления места
 import InfoTooltip from './InfoTooltip'; // Попап добавления места
-import api from '../utils/api'; // Подключение к апи для получения данных
+import Api from '../utils/api'; // Подключение к апи для получения данных
 import { CurrentUserContext } from '../contexts/currentUserContext'; // Контекст текущего юзера
 import auth from '../utils/auth';
 
@@ -32,6 +32,9 @@ class App extends React.Component {
       // FIXME: Переменная для нужд разработки, авторизован ли юзер
       isUserLogined: false,
     };
+
+    this._apiToken = localStorage.getItem('jwt');
+    this._api = new Api(this._apiToken);
   }
 
   handleLogin = (token, email) => {
@@ -105,7 +108,8 @@ class App extends React.Component {
   }
 
   handleUpdateUser = (newUserData) => {
-    api.saveUserInfo(newUserData).then((responseData) => {
+    this._api.saveUserInfo(newUserData).then((responseData) => {
+      console.log(responseData);
       this.setState({ currentUser: responseData });
       this.closeAllPopups();
     }).catch((error) => console.log(error));
@@ -113,7 +117,7 @@ class App extends React.Component {
 
   handleUpdateAvatar = (newAvatarData) => {
     // Обновить аватар
-    api.changeAvatar(newAvatarData).then((responseData) => {
+    this._api.changeAvatar(newAvatarData).then((responseData) => {
       // Обновить контекст
       this.setState({ currentUser: responseData });
       this.closeAllPopups();
@@ -125,7 +129,7 @@ class App extends React.Component {
     const isLiked = card.likes.some((like) => like._id === this.state.currentUser._id);
     // Если карта "лайкнута", передаем в апи "не нужен лайк" чтобы снять лайк при клике
     // Метод вернёт карточку места с обновленным числом лайков (объект, элемент массива)
-    api.changeCardLike(card._id, !isLiked).then((updatedCard) => {
+    this._api.changeCardLike(card._id, !isLiked).then((updatedCard) => {
       // Обновить число лайков на карточках (внести изменение в стейт списка карточек)
       const newCardsState = this.state.cards.map((item) => {
         // Находим в массиве карточку с нужным   ._id
@@ -153,7 +157,7 @@ class App extends React.Component {
     event.preventDefault();
     // Передаём переменную в компоненте при помощи переменной класса
     const card = this.cardToDelete;
-    api.deleteCard(card._id).then((response) => {
+    this._api.deleteCard(card._id).then((response) => {
       // Если был получен ответ от сервера, и он не null
       if (response) {
         // После удаления в апи надо удалить карточку из списка карточек
@@ -170,7 +174,7 @@ class App extends React.Component {
   }
 
   handleAddPlaceSubmit = (newCardObject) => {
-    api.addCard(newCardObject).then((responseData) => {
+    this._api.addCard(newCardObject).then((responseData) => {
       this.setState({ cards: [responseData, ...this.state.cards] });
       this.closeAllPopups();
     }).catch((error) => console.log(error));
@@ -194,7 +198,7 @@ class App extends React.Component {
             isUserLogined: false,
           }, () => {
             // Если токен просрочен или некорректен, удалили его
-            // localStorage.removeItem('jwt');
+            localStorage.removeItem('jwt');
           });
         }
       });
@@ -212,10 +216,10 @@ class App extends React.Component {
 
     // Использовал Promise.all по совету код-ревьюера, теперь стейт юзера и карточек обновляется
     // в одном выражении вместо двух, упростил читаемость кода
-    Promise.all([api.getUserInfo(), api.getCardsList()]).then(([userInfo, cardsData]) => {
-      // console.log(userInfo);
+    Promise.all([this._api.getUserInfo(), this._api.getCardsList()]).then(([userInfo, cardsData]) => {
+      console.log(userInfo);
       this.setState({
-        currentUser: userInfo,
+        currentUser: userInfo.data,
         cards: cardsData,
       });
     }).catch((error) => console.log(error));

@@ -4,7 +4,7 @@ const UnauthorisedError = require('../errors/unauthorised');
 const NotFoundError = require('../errors/notFound');
 
 const getCards = (req, res, next) => {
-  Card.find({}).populate('owner').then((data) => {
+  Card.find({}).populate('owner').populate('likes').then((data) => {
     res.send(data);
   }).catch(next);
 };

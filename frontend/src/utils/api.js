@@ -1,10 +1,12 @@
 import { token, cohort } from './utils.js';
 // FIXME: Убрать токен и когорту за ненадобностью
+// const authUrl = `https://mesto.nomoreparties.co/v1/${this._cohort}`;
+const authUrl = 'http://localhost:3000';
+
 class Api {
   // Конструктор принимает токен
-  constructor(token, cohort) {
+  constructor(token) {
     this._token = token; // Токен
-    this._cohort = cohort; // Когорта
   }
 
   // Почему бы не вынести обработчик ответа сервера в приватный метод апи?
@@ -19,20 +21,20 @@ class Api {
   }
 
   getUserInfo() {
-    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohort}/users/me`, {
+    return fetch(`${authUrl}/users/me`, {
       method: 'GET',
       headers: {
-        authorization: this._token,
+        'Authorization': `Bearer ${this._token}`,
         'Content-Type': 'application/json',
       },
     }).then(this._processResponse);
   }
 
   saveUserInfo(userObject) {
-    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohort}/users/me`, {
+    return fetch(`${authUrl}/users/me`, {
       method: 'PATCH',
       headers: {
-        authorization: this._token,
+        'Authorization': `Bearer ${this._token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(userObject),
@@ -40,20 +42,20 @@ class Api {
   }
 
   getCardsList() {
-    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohort}/cards`, {
+    return fetch(`${authUrl}/cards`, {
       method: 'GET',
       headers: {
-        authorization: this._token,
+        'Authorization': `Bearer ${this._token}`,
         'Content-Type': 'application/json',
       },
     }).then(this._processResponse);
   }
 
   addCard(cardObject) {
-    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohort}/cards`, {
+    return fetch(`${authUrl}/cards`, {
       method: 'POST',
       headers: {
-        authorization: this._token,
+        'Authorization': `Bearer ${this._token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(cardObject),
@@ -61,10 +63,10 @@ class Api {
   }
 
   deleteCard(cardId) {
-    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohort}/cards/${cardId}`, {
+    return fetch(`${authUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: {
-        authorization: this._token,
+        'Authorization': `Bearer ${this._token}`,
         'Content-Type': 'application/json',
       },
     }).then(this._processResponse);
@@ -79,20 +81,20 @@ class Api {
       requestMethod = 'DELETE'; // Если вторым параметром пришло false, снимаем лайк
     }
 
-    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohort}/cards/likes/${cardId}`, {
+    return fetch(`${authUrl}/cards/${cardId}/likes`, {
       method: requestMethod,
       headers: {
-        authorization: this._token,
+        'Authorization': `Bearer ${this._token}`,
         'Content-Type': 'application/json',
       },
     }).then(this._processResponse);
   }
 
   changeAvatar(avatarData) {
-    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohort}/users/me/avatar`, {
+    return fetch(`${authUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: {
-        authorization: this._token,
+        'Authorization': `Bearer ${this._token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(avatarData),
@@ -100,7 +102,7 @@ class Api {
   }
 }
 
-const api = new Api(token, cohort);
-export default api;
+// const api = new Api();
+export default Api;
 
 // Коментарий для проверки разрешения конфликта с гитхабом
