@@ -1,5 +1,5 @@
-// const authUrl = 'https://api.vanyapro.students.nomoreparties.co';
-const authUrl = 'http://localhost:3000';
+const authUrl = 'https://api.vanyapro.students.nomoreparties.co';
+// const authUrl = 'http://localhost:3000';
 
 // Метод регистрации на сервисе
 const register = (email, password) => {
