@@ -8,6 +8,13 @@
     "indent": ["error", 2], // Прописали отступы в проекте для линтера, чтобы не ругался
     "object-curly-newline": "off", // Отключили требование объявлять объекты в несколько строк (деструктуризация)
     "no-underscore-dangle": "off", // Отключили ругань на приватные методы и приватные поля
+    "no-unused-vars": "off",
+    "import/prefer-default-export": "off",
+    "no-use-before-define": "off",
+    "no-param-reassign": "off",
+    "import/extensions": "off",
+    "no-shadow": "off",
+    "class-methods-use-this": "off",
     "import/no-unresolved": [ // Отключили ругань на импорт модулей ноды
       2,
       { "caseSensitive": false }
