@@ -12,18 +12,19 @@ const getCards = (req, res, next) => {
 const createCard = (req, res, next) => {
   const { name, link } = req.body;
 
-  Card.create({ name, link, owner: req.user._id }).then((data) => {
-    // TODO: найти подходящее решение чтобы делать это в 1 запрос
-    return Card.findById(data._id).populate('owner').populate('likes');
-  }).then((data) => {
-    res.send(data);
-  }).catch((error) => {
-    if (error.name === 'ValidationError') {
-      next(new WrongDataError('Ошибка валидации данных'));
-    } else {
-      next(error);
-    }
-  });
+  Card.create({ name, link, owner: req.user._id }).then((data) => Card.findById(data._id)
+    .populate('owner')
+    .populate('likes'))
+    .then((data) => {
+      // TODO: найти подходящее решение чтобы делать это в 1 запрос
+      res.send(data);
+    }).catch((error) => {
+      if (error.name === 'ValidationError') {
+        next(new WrongDataError('Ошибка валидации данных'));
+      } else {
+        next(error);
+      }
+    });
 };
 
 const deleteCard = (req, res, next) => {
@@ -68,7 +69,7 @@ const putLikeToCard = (req, res, next) => {
     }
     // Эта ошибка сработает если в метод передать корректный ObjectId отсутствующий в БД.
     // Например вы можете создать пользователя, скопировать его ObjectId и получить ошибку :)
-    Promise.reject(new NotFoundError('Карточка не найдена'));
+    return Promise.reject(new NotFoundError('Карточка не найдена'));
   }).catch((error) => {
     if (error.kind === 'ObjectId') {
       next(new WrongDataError('Некорректный идентификатор карточки'));
@@ -91,7 +92,7 @@ const deleteLikeFromCard = (req, res, next) => {
     } else {
       // Эта ошибка сработает если в метод передать корректный ObjectId отсутствующий в БД.
       // Например вы можете создать пользователя, скопировать его ObjectId и получить ошибку :)
-      Promise.reject(new NotFoundError('Карточка не найдена'));
+      return Promise.reject(new NotFoundError('Карточка не найдена'));
     }
   }).catch((error) => {
     if (error.kind === 'ObjectId') {

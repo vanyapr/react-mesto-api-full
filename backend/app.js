@@ -64,6 +64,11 @@ app.post('/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().min(5).max(40),
     password: Joi.string().required().min(5),
+    // Вообще, при регистрации у нас только 2 поля, зачем нам пропускать остальные данные?
+    // Но сделаю по просьбе код ревью, чтобы можно было протестировать постманом
+    name: Joi.string().max(30),
+    about: Joi.string().max(30),
+    avatar: Joi.string(),
   }),
 }), createUser); // Создание пользователя
 
